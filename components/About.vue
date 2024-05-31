@@ -1,8 +1,10 @@
 <template>
   <div>
     <UContainer>
+
       <div class="grid lg:grid-cols-2 justify-between gap-5 ">
-      <div class="lg:w-[50%] md:w-full py-2">
+     
+      <div class="lg:w-full md:w-full py-2">
         <h1 class="font-bold pb-3 text-[#faa122]">ABOUT THIS CAMPANY</h1>
         <p class="font-light">
           "Kigali Phones Center Company was founded by franklin ndanyuzwe 
@@ -10,69 +12,68 @@
           Rwanda, which focuses on e-commerce of Electronics Devices."
         </p>
       </div>
-      <div >
-<div class="grid lg:grid-cols-2">
- <div>
-  <h1 class="font-semibold px-3 text-[#faa122]">LATEST POSTS</h1>
-  <div class="flex  flex-col justify-center p-2">
-  <div v-for="item in data" :key="item.id">
-    <div class="flex gap-5 items-center p-2 shadow-xl">
-     
-        <div >
-      <img :src="item.image" alt="image" class="w-[100px] rounded-md">
-    </div>
-    <div class="px-3">
-      <NuxtLink class="font-light hover:text-primary py-3" to="/">{{ item.head }}</NuxtLink>
+      <div>
+<div class="grid lg:grid-cols-3">
 
-      <div class="flex justify-between items-center">
-        <p class="flex items-center gap-2 text-gray-400"> <UIcon :name="item.icon"/>{{ item.date }}</p>
-        <UIcon :name="item.icons" class="font-light hover:text-primary py-3 cursor-pointer"/>
-      </div>
-      
+  <div>
+    <div class="w-[50px] ">
+      <img src="../assets/logo.png" alt="" class="w-full">
     </div>
-      </div>
-     
-  
-
-    </div>
- </div>
- </div>
-
  
-
-<div>
-  <h1 class="text-[#faa122]">RECENT PRODUCT</h1>
-  <div v-for="item in datax" :key="item.id">
-    <div class="flex gap-5 items-center p-2">
-     
-        <div >
-      <img src="../assets/mac.jpeg" alt="image" class="w-[100px] rounded-md">
+      <h1 class="font-sans py-3  font-bold">Free Delivery</h1>
+      <p class="font-sans">for All Order Over 100$</p>
     </div>
     <div>
-      <NuxtLink class="font-light hover:text-primary py-3" to="/">{{ item.head }}</NuxtLink>
-    
-      <div class="flex justify-between items-center">
-        <p class="flex items-center gap-2"> <UIcon :name="item.icon"/>{{ item.date }}</p>
-        <UIcon :name="item.icons" class="font-light hover:text-primary py-3 cursor-pointer"/>
-      </div>
-      
-    </div>
+      <div class="w-[50px]">
+        <img src="../assets/com-removebg-preview.png" alt="" class="w-full">
       </div>
      
-  
-
+      <h1 class="font-sans py-3 font-bold">24/7 Customer Service</h1>
+      <p class="font-sans">Friendly 24/7 customer support</p>
+    </div>
+    <div>
+      <div class="w-[50px]">
+        <img src="../assets/hy-removebg-preview.png" alt="" class="w-full">
+      </div>
+      
+      <h1 class="font-sans py-3  font-bold">Money Back Guarante</h1>
+      <p class="font-sans">We return within 30days</p>
     </div>
 </div>
-  
-</div>
     </div>
+  
     </div>
     </UContainer>
 
   </div>
 </template>
 
-<script setup>
+
+<script lang="ts" setup>
+import { onMounted, ref } from 'vue';
+
+interface ProductImage {
+  url: string;
+}
+
+interface Product {
+  _id: string;
+  productName: string;
+  productDescription: string;
+  productImage: ProductImage;
+  productPrice: number;
+}
+
+const productsStore = useProductsStore();
+const cartStore = useCartStore();
+
+const products = ref<Product[]>([]);
+
+onMounted(async () => {
+  await productsStore.fetchProducts();
+  products.value = productsStore.products;
+});
+
 const data = [
 {
     id: 1,
@@ -103,6 +104,7 @@ const datax = [
     
   },
 ]
+
 
  
 </script>

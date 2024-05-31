@@ -1,101 +1,89 @@
-<script setup lang="ts">
-const isOpen = ref(false)
-const toast = useToast()
-
-import type { Avatar } from '#ui/types'
-
-import { ref } from 'vue';
-
-const cartItems = ref(0);
-const totalPrice =useCartStore();
-
-const addToCart = () => {
-  const itemPrice = 20.00; 
-  cartItems.value++;
-  // totalPrice.value += itemPrice;
-};
-
-const people = [{
-  id: 1,
-  name: 'small'
-}, {
-  id: 2,
-  name: 'medium'
-}, {
-  id: 3,
-  name: 'lange xl'
-}, {
-  id: 4,
-  name: 'lange 2xl'
-}]
-const color = [{
-  id: 5,
-  name: 'green'
-}, {
-  id: 6,
-  name: 'blue'
-}, {
-  id: 7,
-  name: 'black'
-}, {
-  id: 8,
-  name: 'red'
-}]
-
-
-
-const selected = ref(people[0])
-const props = defineProps({
-  price:String
-})
-</script>
-
-
 <template>
   <div>
-    <UButton icon="i-heroicons-banknotes-20-solid" label="CHECK OUT" @click="isOpen = true" />
+    <Button @click="isOpen = true">
+      PAY NOW
+    </Button>
 
     <UModal v-model="isOpen">
-      <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+      <UCard>
         <template #header>
-        <h1>PAY WITH MOBILE MONEY {{ price }}</h1>
+          <h1>PAY WITH MOBILE MONEY</h1>
         </template>
 
-       
-
         <template #footer>
-          <div class="flex justify-between">
-            <UInput placeholder="Enter Full Name" class="p-3"/>
-           <UInput placeholder="Enter Phone Number" class="p-3"/>
+          <div class="w-full flex gap-5">
+            <div class="w-[100%] cursor-pointer" @click="handlePayment(user.phoneNumber)">
+              <UCard class="border-2 border-green-500 hover:border-red-300">
+                <h1>MoMo Mobile Money</h1>
+              </UCard>
+            </div>
           </div>
-          <div class="flex justify-between">
-            <UInput placeholder="Enter Email" class="p-3"/>
-           <UInput placeholder="Enter Address" class="p-3"/>
-          </div>
-
-          <div class="flex justify-between">
-            <UInput placeholder="Enter House Number" class="p-3"/>
-           <UInput placeholder="Enter Street Number" class="p-3"/>
-          </div>
-      <UInput disabled :placeholder="totalPrice.total"/>
-      <div class="flex justify-between items-center">
-        <UInputMenu
-    v-model="selected"
-    :options="people"
-    value-attribute="id"
-    option-attribute="name"
-    class="p-3"
-    placeholder="select size"
-  />
-  <Radio/>
-          </div>
-         
-<div class="flex justify-center">
-  <UButton>BUY RWF {{ totalPrice.total }}</UButton>
-</div>
- 
         </template>
       </UCard>
     </UModal>
+
+    <div v-if="alertMessage" class="fixed bottom-0 right-0 bg-gray-500 p-3 text-white rounded-md shadow-md">
+      {{ alertMessage }}
+    </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+const isOpen = ref(false);
+const alertMessage = ref<string | null>(null);
+const user = ref<{ phoneNumber: string; email: string }>({ phoneNumber: '', email: '' });
+
+const router = useRouter();
+
+// Function to retrieve user data from localStorage
+const setUser = () => {
+  const storedUser = localStorage.getItem('user');
+  if (storedUser) {
+    user.value = JSON.parse(storedUser);
+  }
+};
+
+// Hook to set user data on component mount
+onMounted(() => {
+  setUser();
+});
+
+// Function to handle payment
+const handlePayment = async (phoneNumber: string) => {
+  try {
+    // Retrieve cart data from localStorage
+    const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    // Calculate total amount
+    const totalAmount = cartItems.reduce((acc:any, item:any) => acc + item.price * item.quantity, 0);
+
+    // Make payment request
+    const response = await axios.post('https://e-commerce-20lb.onrender.com/payment', {
+      amount: totalAmount,
+      currency: 'rwf',
+      phoneNumber: user.value.phoneNumber,
+      items: cartItems,
+      email: user.value.email,
+    });
+
+    alertMessage.value = 'Payment successful!';
+    setTimeout(() => {
+      isOpen.value = false;
+    }, 2000);
+
+    // Clear cart after successful payment
+    localStorage.removeItem('cart');
+
+    router.push('/successfulPayment');
+
+  } catch (error) {
+    console.error('Error initiating payment:', error);
+    router.push('/errorPayment')
+    alertMessage.value = 'Failed to initiate payment.';
+  }
+};
+</script>

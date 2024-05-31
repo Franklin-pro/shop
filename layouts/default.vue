@@ -6,9 +6,6 @@
     <slot />
   </div>
   <div>
-    <div class="p-4">
-      <About/>
-    </div>
     <Footer/>
   </div>
 </template>

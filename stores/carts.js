@@ -1,33 +1,35 @@
-import { defineStore } from 'pinia'
-import products from '~/data'
+import { defineStore } from 'pinia';
 
 export const useCartStore = defineStore('cart', {
   state: () => ({
     cartContent: {},
+    products: {},
     theme: 'light'
   }),
   getters: {
     formattedCart(state) {
       return Object.keys(state.cartContent).map(productId => {
         const productInCart = state.cartContent[productId];
-        const product = products.find(p => p.id === parseInt(productId));
-
-        return {
-          id: product.id,
-          image: product.image,
-          name: product.name,
-          description: product.description,
-          price: product.price,
-          quantity: productInCart.quantity,
-          total: product.price * productInCart.quantity
-        };
-      });
+        const product = state.products[productId];
+        if (product) {
+          return {
+            id: product._id,
+            image: product.productImage.url,
+            name: product.productName,
+            description: product.productDescription,
+            price: product.productPrice,
+            quantity: productInCart.quantity,
+            total: product.productPrice * productInCart.quantity
+          };
+        }
+        return null;
+      }).filter(item => item !== null);
     },
     total(state) {
       return Object.keys(state.cartContent).reduce((acc, productId) => {
-        const product = products.find(p => p.id === parseInt(productId));
+        const product = state.products[productId];
         if (product) {
-          return acc + product.price * state.cartContent[productId].quantity;
+          return acc + product.productPrice * state.cartContent[productId].quantity;
         }
         return acc;
       }, 0);
@@ -42,7 +44,18 @@ export const useCartStore = defineStore('cart', {
     }
   },
   actions: {
-    add(productId) {
+    async fetchProduct(productId) {
+      if (!this.products[productId]) {
+        try {
+          const response = await fetch(`https://e-commerce-20lb.onrender.com/product/${productId}`);
+          const product = await response.json();
+          this.products[productId] = product.data; 
+        } catch (error) {
+          console.error('Failed to fetch product details', error);
+        }
+      }
+    },
+    async add(productId) {
       if (this.cartContent[productId]) {
         this.cartContent[productId].quantity += 1;
       } else {
@@ -50,9 +63,10 @@ export const useCartStore = defineStore('cart', {
           productId,
           quantity: 1
         };
+        await this.fetchProduct(productId);
       }
     },
-    remove(productId) {
+    async remove(productId) {
       if (!this.cartContent[productId]) {
         return;
       } else {

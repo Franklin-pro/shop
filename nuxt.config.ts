@@ -1,5 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
-  modules: ["@nuxt/ui", "@pinia/nuxt"]
+  devtools: { enabled: false },
+  modules: ["@nuxt/ui", "@pinia/nuxt", '@nuxtjs/color-mode'],
+ 
+  colorMode: {
+    classSuffix: ''
+  },
+  css: [
+    '@/assets/css/main.css'
+  ]
 })
