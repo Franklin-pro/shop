@@ -2,7 +2,7 @@
   <div>
     <div>
       <div class="lg:h-[600px] p-[20px] lg:flex justify-between items-center relative lg:flex-row-reverse md:flex-col sm:flex-col gap-[40px]">
-        <img src="../assets/head.avif" alt="" class="lg:w-[100%] lg:h-[500px]">
+        <img src="../assets/head.png" alt="" class="lg:w-[100%] lg:h-[500px]">
         <div class="w-full">
           <h1 class="text-4xl mb-8 text-[#faa122] font-semibold w-full">Your Perfect Electronic Device</h1>
           <p class="text-xl font-sans mb-8">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non debitis ullam commodi vero suscipit ratione!</p>

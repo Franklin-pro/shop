@@ -12,12 +12,10 @@
           <div class="p-4">
             <h2 class="mb-2 text-lg font-medium truncate text-[#faa122]">{{ item.blogTitle }}</h2>
             <p class="mb-2 text-base dark:text-gray-300 text-gray-700 truncate">{{ item.blogsDescription}}</p>
-            <!-- <p class="mr-2 text-lg font-semibold text-primary">Price: {{ item.productPrice }} RWF</p> -->
             <div class="flex items-center justify-between">
               <NuxtLink :to="`/products/${item._id}`" class="text-md">Read More</NuxtLink>
               <UButton @click="addToCart(item._id)">
                 BUY
-                <!-- <UIcon name="i-heroicons-shopping-cart" class="text-xl" /> -->
               </UButton>
             </div>
           </div>
