@@ -315,8 +315,8 @@ const updateProduct = async () => {
       <UInput v-model="updateForm.productDescription" label="Product Description" class="p-2"/>
       <UInput v-model="updateForm.productPrice" label="Product Price" type="number" class="p-2" />
       <div class="flex justify-end space-x-2">
-        <UButton icon="i-heroicons-x-mark-16-solid" @click="showUpdateModal = false">Cancel</UButton>
-        <UButton color="blue" @click="updateProduct">Update</UButton>
+        <UButton color="blue" icon="i-heroicons-x-mark-16-solid" @click="showUpdateModal = false">Cancel</UButton>
+        <UButton icon="i-heroicons-pencil-20-solid" @click="updateProduct">Update</UButton>
       </div>
       </UCard>
    
@@ -327,7 +327,7 @@ const updateProduct = async () => {
     <UCard>
       <p class="text-center">Are you sure you want to delete this product?</p>
     <div class="flex justify-center mt-4 gap-5">
-      <UButton icon="i-heroicons-x-mark-16-solid" @click="showDeleteConfirmModal = false">Cancel</UButton>
+      <UButton color="blue" icon="i-heroicons-x-mark-16-solid" @click="showDeleteConfirmModal = false">Cancel</UButton>
       <UButton icon="i-heroicons-trash" color="red" @click="confirmDeleteProduct">Delete</UButton>
     </div>
     </UCard>
