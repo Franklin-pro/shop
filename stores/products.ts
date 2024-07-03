@@ -30,6 +30,7 @@ export const useProductsStore = defineStore('productsStore', {
       try {
         const response = await axios.get<ApiResponse<Product[]>>(`https://e-commerce-20lb.onrender.com/product`);
         this.products = response.data.data;
+   
       } catch (error: unknown) {
         if (axios.isAxiosError(error) && error.response) {
           this.error = error.response.data.message;
@@ -47,11 +48,18 @@ export const useProductsStore = defineStore('productsStore', {
           method: "POST",
           body: productData
         });
-        // Handle the response as necessary
+    
+        if (response && response.message) {
+          alert(response.message);
+        } else {
+          alert('Product uploaded successfully'); // Fallback message
+        }
       } catch (error) {
         console.error('Failed to upload product:', error);
+        alert('Failed to upload product. Please try again later.'); // User-friendly error message
       }
     },
+    
     async fetchProductById(productId: string) {
       try {
         const response = await $fetch<ApiResponse<Product>>(`https://e-commerce-20lb.onrender.com/product/${productId}`);
