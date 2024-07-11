@@ -64,9 +64,6 @@ const resetFilters = () => {
 const sort = ref({ column: 'userid', direction: 'asc' as const })
 const page = ref(1)
 const pageCount = ref(10)
-const pageTotal = ref(200) // This value should be dynamic coming from the API
-const pageFrom = computed(() => (page.value - 1) * pageCount.value + 1)
-const pageTo = computed(() => Math.min(page.value * pageCount.value, pageTotal.value))
 
 // Data fetching for user data
 const people = ref<User[]>([])
@@ -84,7 +81,7 @@ const fetchUsers = async () => {
       }
     })
     people.value = response.data.data
-    pageTotal.value = response.data.total // Assuming the API returns total count
+    
   } catch (error) {
     console.error('Error fetching users:', error)
   } finally {
@@ -136,58 +133,8 @@ const deleteUser = async (userId: string) => {
       </h2>
     </template>
 
-    <div class="flex items-center justify-between gap-3 px-4 py-3">
-      <UInput v-model="search" icon="i-heroicons-magnifying-glass-20-solid" placeholder="Search..." />
 
-      <USelectMenu v-model="selectedStatus" :options="todoStatus" multiple placeholder="Status" class="w-40" />
-    </div>
-
-    <div class="flex justify-between items-center w-full px-4 py-3">
-      <div class="flex items-center gap-1.5">
-        <span class="text-sm leading-5">Rows per page:</span>
-
-        <USelect
-          v-model="pageCount"
-          :options="[1, 3, 5, 10, 20, 30, 40]"
-          class="me-2 w-20"
-          size="xs"
-        />
-      </div>
-
-      <div class="flex gap-1.5 items-center">
-        <UDropdown v-if="selectedRows.length > 1" :items="actions" :ui="{ width: 'w-36' }">
-          <UButton
-            icon="i-heroicons-chevron-down"
-            trailing
-            color="gray"
-            size="xs"
-          >
-            Mark as
-          </UButton>
-        </UDropdown>
-
-        <USelectMenu v-model="selectedColumns" :options="columns" multiple>
-          <UButton
-            icon="i-heroicons-view-columns"
-            color="gray"
-            size="xs"
-          >
-            Columns
-          </UButton>
-        </USelectMenu>
-
-        <UButton
-          icon="i-heroicons-funnel"
-          color="gray"
-          size="xs"
-          :disabled="search === '' && selectedStatus.length === 0"
-          @click="resetFilters"
-        >
-          Reset
-        </UButton>
-      </div>
-    </div>
-
+    
     <UTable
       v-model="selectedRows"
       v-model:sort="sort"
@@ -209,41 +156,11 @@ const deleteUser = async (userId: string) => {
           variant="outline"
           :ui="{ rounded: 'rounded-full' }"
           square
-          @click="deleteUser(row.id)"
+          @click="deleteUser(row._id)"
         />
       </template>
     </UTable>
 
-    <template #footer>
-      <div class="flex flex-wrap justify-between items-center">
-        <div>
-          <span class="text-sm leading-5">
-            Showing
-            <span class="font-medium">{{ pageFrom }}</span>
-            to
-            <span class="font-medium">{{ pageTo }}</span>
-            of
-            <span class="font-medium">{{ pageTotal }}</span>
-            results
-          </span>
-        </div>
-
-        <UPagination
-          v-model="page"
-          :page-count="pageCount"
-          :total="pageTotal"
-          :ui="{
-            wrapper: 'flex items-center gap-1',
-            rounded: '!rounded-full min-w-[32px] justify-center',
-            default: {
-              activeButton: {
-                variant: 'outline'
-              }
-            }
-          }"
-        />
-      </div>
-    </template>
   </UCard>
 
   <!-- Include the OrderModal component if needed -->

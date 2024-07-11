@@ -1,6 +1,5 @@
 <template>
   <div class="p-6">
-    <h1>customers Page</h1>
   <CustomerT/>
   </div>
 </template>

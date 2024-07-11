@@ -1,6 +1,6 @@
 <template>
   <div class="flex ">
-<div class="fixed">
+<div class="fixed overflow-y-auto h-full scroll-smooth focus:scroll-auto ">
   <Sidebar/>
 </div>
  

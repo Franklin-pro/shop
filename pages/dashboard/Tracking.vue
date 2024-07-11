@@ -127,7 +127,7 @@ const menuItems = ref([
 const tracks = [
   {
     id: 'UL-158902NH',
-    route: 'Madrid - Malaga',
+    route: 'kicukiro - Niboye',
     distance: 529,
     timeLeft: '1h 26m',
     status: 'On route',
@@ -135,7 +135,7 @@ const tracks = [
   },
   {
     id: 'UK-568742NK',
-    route: 'Madrid - Roma',
+    route: 'Nyarungenge - Nyamirambo',
     distance: 1959,
     timeLeft: '19h 9m',
     status: 'Waiting',
@@ -143,7 +143,7 @@ const tracks = [
   },
   {
     id: 'KJ-145651LK',
-    route: 'Paris - Berlin',
+    route: 'Gasabo- Kimihurura',
     distance: 1059,
     timeLeft: '12h 50m',
     status: 'On route',
@@ -151,7 +151,7 @@ const tracks = [
   },
   {
     id: 'KJ-145651LK',
-    route: 'Paris - Berlin',
+    route: 'Kicukiro- Gatenga',
     distance: 1059,
     timeLeft: '12h 50m',
     status: 'On route',

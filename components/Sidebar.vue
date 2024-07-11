@@ -1,6 +1,8 @@
 <template>
   <div class="flex">
-    <div :class="[isOpen ? 'w-72 ' : 'w-20', 'bg-[#f8f8fa] h-full p-5 pt-8 relative duration-300 fixed overflow-y-auto']">
+
+      <div :class="[isOpen ? 'w-72 ' : 'w-20', ' h-full relative duration-300 fixed overflow-auto']">
+        <UCard>
       <UIcon 
         name="i-ic-baseline-arrow-back-ios"
         dynamic 
@@ -15,7 +17,7 @@
       <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-md duration-300 pt-6']">MARKETING</h1>
       <div v-for="item in items" :key="item.id">
         <NuxtLink :to="item.route">
-          <div :class="[isOpen ? 'hover:bg-[#e2f0ed] hover:border-2 hover:border-green-500 w-full' :'hover:bg-[#e2f0ed]', 'inline-flex pt-4 p-2 cursor-pointer rounded-xl']">
+          <div :class="[isOpen ? ' hover:border-2 hover:border-green-500 w-full' :'hover:bg-primary', 'inline-flex p-2 cursor-pointer rounded-xl']">
             <UIcon :name="item.icon" dynamic :class="[isOpen ? 'rotate-[360deg]' : 'text-2xl cursor-pointer duration-500 mr-2 float-left block', 'text-2xl mr-3 text-[#688279]']"/>
             <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-dm duration-300']">{{ item.name }}</h1>
           </div>
@@ -24,7 +26,7 @@
       <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-md duration-300 pt-6']">PAYMENT</h1>
       <div v-for="item in pay" :key="item.id">
         <NuxtLink :to="item.route">
-          <div :class="[isOpen ? 'hover:bg-[#e2f0ed] hover:border-2 hover:border-green-500 w-full' :'hover:bg-green-500', 'inline-flex cursor-pointer pt-4 p-2 rounded-xl']">
+          <div :class="[isOpen ? ' hover:border-2 hover:border-green-500 w-full' :'hover:bg-green-500', 'inline-flex cursor-pointer p-2 rounded-xl']">
             <UIcon :name="item.icon" dynamic :class="[isOpen ? 'rotate-[360deg]' : 'text-2xl cursor-pointer duration-500 mr-2 float-left block', 'text-2xl mr-3 text-[#688279]']"/>
             <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-dm duration-300']">{{ item.name }}</h1>
           </div>
@@ -33,7 +35,7 @@
       <h1 :class="[isOpen ? 'scale-1 w-full' : 'hidden', 'text-[#688279] origin-left font-medium text-md duration-300 pt-6']">SYSTEM</h1>
       <div v-for="item in system" :key="item.id">
         <NuxtLink :to="item.route">
-          <div :class="[isOpen ? 'hover:bg-[#e2f0ed] hover:border-2 hover:border-green-500 w-full' :'hover:bg-green-500', 'inline-flex cursor-pointer pt-4 p-2 rounded-xl']">
+          <div :class="[isOpen ? ' hover:border-2 hover:border-green-500 w-full' :'hover:bg-green-500', 'inline-flex cursor-pointer p-2 rounded-xl']">
             <UIcon :name="item.icon" dynamic :class="[isOpen ? 'rotate-[360deg]' : 'text-2xl cursor-pointer duration-500 mr-2 float-left block', 'text-2xl mr-3 text-[#688279]']"/>
             <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-dm duration-300']">{{ item.name }}</h1>
           </div>
@@ -43,7 +45,7 @@
         <UToggle v-model="selected" @click="toggleColorMode" on-icon="i-heroicons-moon-16-solid" off-icon="i-heroicons-sun-20-solid">
           {{ colorMode.preference === 'dark' ? 'Light' : 'Dark' }}
         </UToggle>
-        <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-dm duration-300']">darkmode</h1>
+        <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-dm duration-300']">COLOR-Mode</h1>
       </div>
       <div class="my-2 lg:my-0 py-5">
 
@@ -52,13 +54,15 @@
           <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-dm duration-300 cursor-pointer hover:text-red-500']">Log Out</h1>
         </div> -->
       </div>
+    </UCard>
     </div>
    
+
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, Text } from 'vue';
 import { useRouter } from 'vue-router';
 // import { useColorMode } from '@vueuse/core';
 
