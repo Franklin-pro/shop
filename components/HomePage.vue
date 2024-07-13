@@ -7,7 +7,7 @@
      
 
     <div class="w-full ">
-      <h1 class="text-[50px] mb-8 text-[#faa122] font-[Playwrite-FR-Moderne] font-mono font-semibold w-full"> Franklin'$hop  €lectronics</h1>
+      <h1 class="lg:text-[50px] md:text-[30px] sm:text-[20px]  mb-8 text-[#faa122] font-[Playwrite-FR-Moderne] font-mono font-semibold w-full"> Franklin'$hop  €lectronics</h1>
       <p class="text-xl font-mono mb-8 text-left">Welcome to Franklin'shop Electronics, your premier destination for cutting-edge technology and innovation. Explore our curated selection of electronic devices designed to elevate your lifestyle</p>
     <Button @click="$router.push('/products')">
       Get Started
