@@ -97,19 +97,19 @@ onMounted(() => {
         <template #footer>
           <!-- User input fields -->
           <div class="flex justify-between">
-            <UInput placeholder="Enter Full Name" class="p-3 w-full" v-model="user.fullName" />
-            <UInput placeholder="Enter Phone Number" class="p-3 w-full" v-model="user.phoneNumber" />
+            <UInput disabled placeholder="Enter Full Name" class="p-3 w-full" v-model="user.fullName" />
+            <UInput disabled placeholder="Enter Phone Number" class="p-3 w-full" v-model="user.phoneNumber" />
           </div>
           <div class="flex justify-between">
-            <UInput placeholder="Enter Email" class="p-3 w-full" v-model="user.email" />
-            <UInput placeholder="Enter City" class="p-3 w-full" v-model="user.city" />
+            <UInput disabled placeholder="Enter Email" class="p-3 w-full" v-model="user.email" />
+            <UInput disabled placeholder="Enter City" class="p-3 w-full" v-model="user.city" />
           </div>
           <div class="flex justify-between">
-            <UInput placeholder="Enter Address ex:kicukiro,gatenga" class="p-3 w-full" v-model="user.address" />
+            <UInput disabled placeholder="Enter Address ex:kicukiro,gatenga" class="p-3 w-full" v-model="user.address" />
           </div>
           <div class="flex justify-between">
-            <UInput placeholder="Enter House Number" class="p-3 w-full" v-model="user.houseNumber" />
-            <UInput placeholder="Enter Street Number" class="p-3 w-full" v-model="user.streetNumber" />
+            <UInput disabled placeholder="Enter House Number" class="p-3 w-full" v-model="user.houseNumber" />
+            <UInput disabled placeholder="Enter Street Number" class="p-3 w-full" v-model="user.streetNumber" />
           </div>
        
           <div class="flex">
@@ -117,7 +117,7 @@ onMounted(() => {
               <h2 class="font-bold py-2">DID YOU KNOW</h2>
               <li>you can pay for your product that has reached you</li>
               <li>when we bring a product you don't like it and you can bring it back before three days</li>
-              <p class="py-5">if you don't have account here please <NuxtLink to="/createAccount" class="text-blue-500">Create Account</NuxtLink></p>
+              <p class="py-5">if you don't have account here? please <NuxtLink to="/createAccount" class="text-blue-500">Create Account</NuxtLink></p>
             </div>
           </div>
         </template>

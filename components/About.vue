@@ -7,7 +7,7 @@
       <div class="lg:w-full md:w-full py-2">
         <h1 class="font-bold pb-3 text-[#faa122]">ABOUT THIS CAMPANY</h1>
         <p class="font-light">
-          "Kigali Phones Center Company was founded by franklin ndanyuzwe 
+          "Franklin Shop Electronics Company was founded by franklin ndanyuzwe 
            is an East African Online shopping company based in
           Rwanda, which focuses on e-commerce of Electronics Devices."
         </p>

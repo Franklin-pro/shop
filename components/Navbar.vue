@@ -24,7 +24,7 @@ const userStore = useUserStore();
           <div class="flex gap-3">
             <img src="../assets/lgo.png" alt="" class="w-[30px]" />
             <NuxtLink to="/" class="font-sans font-bold text-2xl text-primary text-balance">
-              Franklin's <span class="text-[#faa122]">$Hop</span>
+              F<span class="text-[#faa122]">$€</span>
             </NuxtLink>
           </div>
           <button @click="isMenuOpen = !isMenuOpen" class="lg:hidden focus:outline-none duration-300">
