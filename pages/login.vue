@@ -48,7 +48,7 @@ const signIn = async () => {
       email: state.email,
       password: state.password
     })
-    greetUser(user.firstName)
+    greetUser(user.fullName)
   } catch (error) {
     console.error('Failed to sign in:', error)
   }
@@ -65,7 +65,7 @@ const onSubmit = async (event: any) => {
 
 const greetingMessage = ref('')
 
-const greetUser = (firstName: string) => {
+const greetUser = (fullName: string) => {
   const currentHour = new Date().getHours()
   let greeting = 'Good Evening'
   if (currentHour < 12) {
@@ -73,7 +73,7 @@ const greetUser = (firstName: string) => {
   } else if (currentHour >= 12 && currentHour < 18) {
     greeting = 'Good Afternoon'
   }
-  greetingMessage.value = `${greeting} , ${firstName}`
+  greetingMessage.value = `${greeting} , ${fullName}`
   sayHello(greetingMessage.value)
 }
 
