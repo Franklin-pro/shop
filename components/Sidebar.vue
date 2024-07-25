@@ -8,9 +8,11 @@
           :class="[isOpen ? 'rotate-0' : 'rotate-180', 'text-2xl text-black absolute right-3 cursor-pointer z-50 bg-[#f8f8fc] p-1 rounded-md']"
           @click="toggleSidebar"
         />
+        <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-primary origin-left font-medium text-md duration-300 p-3']">{{ greetings }} 🖐</h1>
         <div class="inline-flex items-center">
           <img src="../assets/lgo.png" alt="" :class="[isOpen ? 'rotate-[360deg]' : 'w-[20%] cursor-pointer duration-500 mr-2 float-left block', 'text-2xl mr-3 w-[20%]']">
           <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#19a873] origin-left font-medium text-xl duration-300']">Franklin'shop</h1>
+         
         </div>
         <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-md duration-300 pt-6']">MARKETING</h1>
         <div v-for="item in items" :key="item.id">
@@ -94,6 +96,18 @@ const toggleColorMode = () => {
 
 const logout = () => {
   userStore.logout()
+}
+
+const greetings = ref('');
+
+
+const currentHour = new Date().getHours();
+if (currentHour < 12) {
+  greetings.value = ` Good Morning`;
+} else if (currentHour >= 12 && currentHour < 18) {
+  greetings.value = ` Good Afternoon`;
+} else {
+  greetings.value = ` Good Evening`;
 }
 </script>
 
