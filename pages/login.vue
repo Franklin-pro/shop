@@ -1,49 +1,31 @@
 <template>
-  <div class="p-2 w-full flex justify-center w-full md-">
-
-    <!-- <div class=" bg-green-500 lg:w-[50%] md:hidden sm:hidden">
-      <img src="../assets/sad.jpeg" alt="Image">
-    </div> -->
+  <div class="p-2 w-full flex justify-center">
     <div class="lg:w-[50%] md:w-full rounded-x p-4">
-    
-<UCard>
-  <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit">
-        <UFormGroup name="email">
-          <UInput v-model="state.email" icon="i-heroicons-envelope" placeholder="Enter email" />
-        </UFormGroup>
-
-        <UFormGroup name="password">
-          <UInput
-            v-model="state.password"
-            type="password"
-            placeholder="Enter password"
-            icon="i-heroicons-lock-closed-16-solid"
-          />
-        </UFormGroup>
-
-        <Button>Login</Button>
-      </UForm>
-      <NuxtLink to="/forgotpassword" class="flex justify-end pr-4 text-blue-500">Forgot Password?</NuxtLink>
-      <div class="p-4"></div>
-      <p class=" text-center">
-        If you don't have an account here? <NuxtLink to="/createaccount" class="text-blue-500 hover:text-blue-300">Sign-Up</NuxtLink>
-      </p>
-</UCard>
-      
-
-   
+      <UCard>
+        <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit">
+          <UFormGroup name="email">
+            <UInput v-model="state.email" icon="i-heroicons-envelope" placeholder="Enter email" />
+          </UFormGroup>
+          <UFormGroup name="password">
+            <UInput v-model="state.password" type="password" placeholder="Enter password" icon="i-heroicons-lock-closed-16-solid" />
+          </UFormGroup>
+          <Button>Login</Button>
+        </UForm>
+        <NuxtLink to="/forgotpassword" class="flex justify-end pr-4 text-blue-500">Forgot Password?</NuxtLink>
+        <div class="p-4"></div>
+        <p class="text-center">
+          If you don't have an account here? <NuxtLink to="/createaccount" class="text-blue-500 hover:text-blue-300">Sign-Up</NuxtLink>
+        </p>
+      </UCard>
     </div>
-
   </div>
 </template>
 
-
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-
 import type { FormError } from '#ui/types'
-import Button from '~/components/Button.vue';
+import Button from '~/components/Button.vue'
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -66,8 +48,7 @@ const signIn = async () => {
       email: state.email,
       password: state.password
     })
-    
- 
+    greetUser(user.firstName)
   } catch (error) {
     console.error('Failed to sign in:', error)
   }
@@ -81,25 +62,41 @@ const onSubmit = async (event: any) => {
   }
   await signIn()
 }
+
+const greetingMessage = ref('')
+
+const greetUser = (firstName: string) => {
+  const currentHour = new Date().getHours()
+  let greeting = 'Good Evening'
+  if (currentHour < 12) {
+    greeting = 'Good Morning'
+  } else if (currentHour >= 12 && currentHour < 18) {
+    greeting = 'Good Afternoon'
+  }
+  greetingMessage.value = `${greeting} , ${firstName}`
+  sayHello(greetingMessage.value)
+}
+
+const sayHello = (greeting: string) => {
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(greeting)
+    window.speechSynthesis.speak(utterance)
+  } else {
+    console.warn('Speech Synthesis not supported in this browser.')
+  }
+}
+
+onMounted(() => {
+  if (userStore.user) {
+    greetUser(userStore.user.fullName)
+  }
+})
 </script>
 
-
-
-
 <style scoped>
-/* .width {
-  backdrop-filter: blur(50px);
-  margin: 0 auto;
-  width: 80%;
-
-  border-radius: 20px;
-  padding: 50px;
-  height: 600px;
-} */
 img {
   width: 100%;
   object-fit: cover;
   height: 100%;
 }
 </style>
-
