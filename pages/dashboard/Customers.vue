@@ -8,7 +8,8 @@
 import CustomerT from '~/components/CustomerT.vue';
 
 definePageMeta({
-  layout:'dashboard'
+  layout:'dashboard',
+  middleware:'auth'
 })
 </script>
 

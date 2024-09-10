@@ -12,7 +12,7 @@
 
         <template #footer>
           <div class="w-full flex gap-5">
-            <div class="w-[100%] cursor-pointer" @click="handlePayment(user.phoneNumber)">
+            <div class="w-[100%] cursor-pointer" @click="handlePayment">
               <UCard class="border-2 border-green-500 hover:border-red-300">
                 <h1>MoMo Mobile Money</h1>
               </UCard>
@@ -53,21 +53,43 @@ onMounted(() => {
 });
 
 // Function to handle payment
-const handlePayment = async (phoneNumber: string) => {
+const handlePayment = async () => {
   try {
     // Retrieve cart data from localStorage
     const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
 
+    if (cartItems.length === 0) {
+      alertMessage.value = 'Your cart is empty.';
+      return;
+    }
+
     // Calculate total amount
-    const totalAmount = cartItems.reduce((acc:any, item:any) => acc + item.price * item.quantity, 0);
+    const totalAmount = cartItems.reduce((acc: number, item: any) => acc + item.price * item.quantity, 0);
+
+    if (!totalAmount || totalAmount <= 0) {
+      alertMessage.value = 'Invalid total amount.';
+      return;
+    }
+
+    // Retrieve token from localStorage
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alertMessage.value = 'User not authenticated.';
+      router.push('/login');
+      return;
+    }
 
     // Make payment request
-    const response = await axios.post('https://e-commerce-20lb.onrender.com/payment', {
+    const response = await axios.post('http://localhost:3031/payment', {
       amount: totalAmount,
       currency: 'rwf',
       phoneNumber: user.value.phoneNumber,
       items: cartItems,
       email: user.value.email,
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
 
     alertMessage.value = 'Payment successful!';
@@ -82,7 +104,7 @@ const handlePayment = async (phoneNumber: string) => {
 
   } catch (error) {
     console.error('Error initiating payment:', error);
-    router.push('/errorPayment')
+    router.push('/errorPayment');
     alertMessage.value = 'Failed to initiate payment.';
   }
 };

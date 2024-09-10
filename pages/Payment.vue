@@ -50,13 +50,13 @@ const user = ref<User>({
 
 const fetchUser = async (data: Login) => {
   try {
-    // Perform login
     const loginResponse = await axios.post("https://e-commerce-20lb.onrender.com/user/login", data);
     
     if (loginResponse.status === 200) {
-      const userResponse = await axios.get<ApiResponse<User>>("https://e-commerce-20lb.onrender.com/user");
-      user.value = loginResponse.data.data.user;
-      localStorage.setItem('user', JSON.stringify(user.value)); 
+      const { token, user } = loginResponse.data;
+      localStorage.setItem('authToken', token);
+      localStorage.setItem('user', JSON.stringify(user));
+      user.value = user;
     } else {
       console.log("Login failed");
     }
@@ -64,6 +64,7 @@ const fetchUser = async (data: Login) => {
     console.error("Error fetching user:", error);
   }
 };
+
 
 const setUser = () => {
   const storedUser = localStorage.getItem('user');
@@ -98,7 +99,7 @@ onMounted(() => {
           <!-- User input fields -->
           <div class="flex justify-between">
             <UInput disabled placeholder="Enter Full Name" class="p-3 w-full" v-model="user.fullName" />
-            <UInput disabled placeholder="Enter Phone Number" class="p-3 w-full" v-model="user.phoneNumber" />
+            <UInput placeholder="Enter Phone Number" class="p-3 w-full" v-model="user.phoneNumber" />
           </div>
           <div class="flex justify-between">
             <UInput disabled placeholder="Enter Email" class="p-3 w-full" v-model="user.email" />

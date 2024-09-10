@@ -8,7 +8,7 @@
 
     <div class="absolute right-0 py-3 px-4">
       <Profile />
-     
+     <Congaturation src="../assets/iwatch.jpeg"/>
     </div>
    
     <div class="w-full ml-72">
@@ -21,6 +21,7 @@
 import { ref } from 'vue';
 import Sidebar from '~/components/Sidebar.vue';
 import Profile from '~/components/Profile.vue';
+import Congaturation from '~/components/Congaturation.vue';
 
 
 </script>

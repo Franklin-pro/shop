@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class=" bg-image">
-   <div class="lg:h-[600px] p-[20px] lg:flex justify-between items-center relative lg:flex-row-reverse md:flex-col sm:flex-col gap-[40px]">
+   <div class="lg:h-[600px] p-[20px] image-container lg:flex justify-between items-center relative lg:flex-row-reverse md:flex-col sm:flex-col gap-[40px]">
    
       <img src="../assets/head.png" alt="" class="lg:w-[100%] lg:h-[500px] ">
      
 
     <div class="w-full ">
-      <h1 class="lg:text-[50px] md:text-[30px] sm:text-[20px]  mb-8 text-[#faa122] font-[Playwrite-FR-Moderne] font-mono font-semibold w-full"> Franklin'$hop  €lectronics</h1>
-      <p class="text-xl font-mono mb-8 text-left">Welcome to Franklin'shop Electronics, your premier destination for cutting-edge technology and innovation. Explore our curated selection of electronic devices designed to elevate your lifestyle</p>
+      <h1 class="lg:text-5xl md:text-2xl sm:text-xl mb-5 text-[#faa122] font-semibold w-full"> Franklin'$hop  €lectronics</h1>
+      <p class="text-md mb-8 text-left space-y-1">Welcome to Franklin'shop Electronics, your premier destination for cutting-edge technology and innovation. Explore our curated selection of electronic devices designed to elevate your lifestyle</p>
     <Button @click="$router.push('/products')">
       Get Started
     </Button>
@@ -16,39 +16,9 @@
    </div>
 
     </div>
-    <!-- <div class="flex justify-between bg-white">
-      <div v-for="item in itex" :key="item.id">
-        <div class="flex gap-5 p-5 items-center">
-<UIcon :name="item.icon" class="text-[40px] text-black"/>
-<div>
-  <h2 class="text-2xl text-black">{{ item.heading }}</h2>
-  <p class="font-light text-black">{{ item.description }}</p>
-</div>
-      </div>
-      </div>
-
-    </div> -->
 
     <div class="grid lg:grid-cols-2 md:grid-cols w-full p-5 gap-7">
-<!-- <div v-for="item in datas" :key="item.id">
-  <UCard class="relative">
-    <div class="flex justify-between items-center">
-    
-      <div>
-        <h2 class="absolute top-0 py-4 text-xl">{{ item.heading }}</h2>
-  <p class="font-light text-2xl px-2">{{item.description}}</p>
-      </div>
-      <div>
-<img :src="item.image" alt="image" class="w-[200px]">
-      </div>
 
-</div>
-
-<Button>
-  SHOP NOW
-</Button>
-  </UCard>
-</div> -->
 
     </div>
 
@@ -107,4 +77,18 @@ const datas = [
 /* .bg-image{
   background-image: url('https://images.pexels.com/photos/450055/pexels-photo-450055.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
 } */
+
+.image-container {
+  perspective: 1000px;
+}
+
+img {
+  width: 100%;
+  transform: rotateY(20deg);
+  transition: transform 0.5s;
+}
+
+img:hover {
+  transform: rotateY(0deg);
+}
 </style>

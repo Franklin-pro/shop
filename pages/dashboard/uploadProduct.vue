@@ -8,7 +8,8 @@
 import UploadProduct from '~/components/UploadProduct.vue';
 
 definePageMeta({
-  layout:'dashboard'
+  layout:'dashboard',
+  middleware:'auth'
 })
 </script>
 
