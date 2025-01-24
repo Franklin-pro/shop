@@ -1,41 +1,39 @@
 <template>
-  <div class=" p-2 w-full flex justify-center w-full">
+  <div class=" p-2 w-full flex justify-center">
     <!-- <div class=" bg-green-500 lg:w-[50%]">
 <img src="../assets/mac.jpeg" alt="">
 </div> -->
       <div class="lg:w-[50%] md:w-full p-4">
          
     <UCard>
-      <h1 class="font-bold p-3 text-3xl text-center text-[#68ae34]">Create Account</h1>
+      <h1 class="font-bold p-3 text-3xl text-center text-green-500">Create Account</h1>
       <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit" >
               <UFormGroup name="fullName">
-    <UInput v-model="state.fullName" icon="i-heroicons-user-16-solid" placeholder="enter FullName"/>
+    <UInput v-model="state.fullName" icon="i-heroicons-user-16-solid" placeholder="enter FullName" size="lg"/>
   </UFormGroup>
   <UFormGroup name="email">
-    <UInput v-model="state.email"  icon="i-heroicons-envelope" placeholder="enter email address"/>
+    <UInput v-model="state.email"  icon="i-heroicons-envelope" placeholder="enter email address" size="lg"/>
   </UFormGroup>
   <UFormGroup name="phoneNumber">
-    <UInput v-model="state.phoneNumber"  icon="i-heroicons-phone-solid" placeholder="enter Phone Number"/>
+    <UInput v-model="state.phoneNumber"  icon="i-heroicons-phone-solid" placeholder="enter Phone Number" size="lg"/>
   </UFormGroup>
   <UFormGroup name="houseNumber">
-    <UInput v-model="state.houseNumber"  icon="i-heroicons-home" placeholder="enter House Number"/>
+    <UInput v-model="state.houseNumber"  icon="i-heroicons-home" placeholder="enter House Number" size="lg"/>
   </UFormGroup>
   <UFormGroup name="streetNumber">
-    <UInput v-model="state.streetNumber" placeholder="enter Street Number"/>
+    <UInput v-model="state.streetNumber" placeholder="enter Street Number" size="lg"/>
   </UFormGroup>
   <UFormGroup name="city">
-    <UInput v-model="state.city"  icon="i-heroicons-globe-europe-africa" placeholder="enter city"/>
+    <UInput v-model="state.city"  icon="i-heroicons-globe-europe-africa" placeholder="enter city" size="lg"/>
   </UFormGroup>
   <UFormGroup name="address">
-    <UInput v-model="state.address"  icon="i-heroicons-map-pin-16-solid" placeholder="enter address ex:kicukiro,gatenga"/>
+    <UInput v-model="state.address"  icon="i-heroicons-map-pin-16-solid" placeholder="enter address ex:kicukiro,gatenga" size="lg"/>
   </UFormGroup>
   <UFormGroup  name="password">
-    <UInput v-model="state.password" type="password" placeholder="enter password" icon="i-heroicons-lock-closed-16-solid"  />
+    <UInput v-model="state.password" type="password" placeholder="enter password" icon="i-heroicons-lock-closed-16-solid" size="lg" />
   </UFormGroup>
 
-  <Button>
-    Sign Up
-  </Button>
+  <button class="bg-orange-500 w-72 py-2 rounded-md text-lg font-bold">Create Account</button>
 </UForm>
 
 

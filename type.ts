@@ -19,6 +19,16 @@ export interface User {
     address:string;
 }
 
+export interface Tracking {
+    id:        number;
+    userId:    number;
+    productId: number;
+    createdAt: Date;
+    updatedAt: Date;
+    user:      User;
+
+}
+
 export interface Login {
     // message:String;
     email:  string;

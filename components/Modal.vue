@@ -1,20 +1,22 @@
 <template>
-  <div>
-    <Button @click="isOpen = true">
-      PAY NOW
-    </Button>
+  <div class="py-4">
+<button @click="isOpen = true" class="bg-orange-500 hover:bg-orange-600 transition-all duration-5 w-full py-2 font-bold text-xl rounded-md">Pay Now</button>
 
     <UModal v-model="isOpen">
       <UCard>
         <template #header>
-          <h1>PAY WITH MOBILE MONEY</h1>
+          <h1 class="text-yellow-500 font-black text-xl">PAY WITH MOBILE MONEY</h1>
         </template>
 
         <template #footer>
           <div class="w-full flex gap-5">
             <div class="w-[100%] cursor-pointer" @click="handlePayment">
-              <UCard class="border-2 border-green-500 hover:border-red-300">
-                <h1>MoMo Mobile Money</h1>
+              <UCard class="border-2 border-yellow-500 hover:border-orange-500 ">
+                <div class="flex justify-between items-center">
+                  <img src="../assets/mtn.jpeg" alt="momo" class="w-[100px] rounded-md h-[100px] mx-auto">
+                  <h1 class="text-2xl font-black text-yellow-500">MoMo Mobile Money</h1>
+                </div>
+               
               </UCard>
             </div>
           </div>
@@ -79,18 +81,24 @@ const handlePayment = async () => {
       return;
     }
 
-    // Make payment request
-    const response = await axios.post('http://localhost:3031/payment', {
+
+    const response = await axios.post('https://e-commerce-20lb.onrender.com/payment', {
       amount: totalAmount,
-      currency: 'rwf',
       phoneNumber: user.value.phoneNumber,
-      items: cartItems,
       email: user.value.email,
+      cartItems: cartItems.map((item: any) => ({
+        productId: item.id,
+        quantity: item.quantity,
+        price: item.price
+      }))
+
+
     }, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+  
 
     alertMessage.value = 'Payment successful!';
     setTimeout(() => {

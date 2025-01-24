@@ -51,7 +51,7 @@ const error = ref(null);
 
 const fetchProductById = async (blogId) => {
   try {
-    const response = await $fetch(`http://localhost:3031/blog/${blogId}`);
+    const response = await $fetch(`https://e-commerce-20lb.onrender.com/blog/${blogId}`);
     product.value = response.data;
   } catch (err) {
     console.error('Failed to fetch product by ID:', err);

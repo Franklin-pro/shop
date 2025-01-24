@@ -76,6 +76,13 @@ export const useCartStore = defineStore('cart', {
         delete this.cartContent[productId];
       }
     },
+    async clearCart(productId) {
+      if (this.cartContent[productId]) {
+        delete this.cartContent[productId];
+      }
+    },
+// make discount 8% of totalprice of products if you buy above 5 products
+
     toggleTheme() {
       this.theme = this.theme === 'dark' ? 'light' : 'dark';
     }

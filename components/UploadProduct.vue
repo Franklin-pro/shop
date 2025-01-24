@@ -1,19 +1,37 @@
 <template>
-  <div class="flex flex-col justify-center items-center p-8 ">
-    <div class="card p-9">
-      <UCard>
-        <h1 class="font-semibold text-2xl text-gray-900 dark:text-white leading-tight py-6">Upload Product</h1>
+  <div class=" ">
+    <div class=" p-9">
+      <UContainer>
+        <h1 class="font-bold text-4xl text-green-500">UPLOAD PRODUCTS</h1>
         <div>
-          <input ref="productImage" type="file" class="block w-full bg-transparent mb-[10px] p-[8px] border rounded-md border-green-500"/>
-          <input v-model="productName" placeholder="Product Name" class="block w-full bg-transparent mb-[10px] border rounded-md border-green-500 p-[8px]"/>
-          <input v-model="productPrice" type="number" placeholder="Product Price" class="block w-full bg-transparent mb-[10px] p-[8px] border rounded-md border-green-500"/>
-          <textarea v-model="productDescription" placeholder="Product Description" class="block w-full bg-transparent mb-[10px] p-[8px] border rounded-md border-green-500"></textarea>
+          <div class="flex items-center py-5 justify-center w-full">
+            <label for="dropzone-file"
+              class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 ">
+              <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                </svg>
+                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to
+                    upload</span> or drag and drop</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+              </div>
+              <input ref="productImage" id="dropzone-file" type="file" class="hidden" />
+            </label>
+          </div>
+
+          <input v-model="productName" placeholder="Product Name"
+            class="block w-full bg-transparent mb-[10px] border rounded-md border-gray-500 p-[8px]" />
+          <input v-model="productPrice" type="number" placeholder="Product Price"
+            class="block w-full bg-transparent mb-[10px] p-[8px] border rounded-md border-gray-500" />
+          <textarea v-model="productDescription" placeholder="Product Description"
+            class="block w-full bg-transparent mb-[10px] p-[8px] border rounded-md border-gray-500"></textarea>
         </div>
-        <button @click="uploadProduct">Upload Product</button>
-      </UCard>
-    </div>
-    <div class="p-9 w-full">
-      <ProductTable/>
+        <button @click="uploadProduct" class="bg-orange-500 w-72 py-2 rounded-md font-bold">Upload Product</button>
+
+      </UContainer>
+
     </div>
   </div>
 </template>
@@ -44,7 +62,7 @@ const uploadProduct = async () => {
   formData.append('productDescription', productDescription.value);
 
   try {
-    const response:any = await useStore.addProduct(formData);
+    const response: any = await useStore.addProduct(formData);
     if (response) {
       alert('Product uploaded successfully');
     }
@@ -68,10 +86,6 @@ const resetForm = () => {
 
 
 <style scoped>
-
-
-
-
 .card button {
   padding: 10px 20px;
   background-color: #007bff;

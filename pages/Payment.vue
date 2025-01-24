@@ -16,6 +16,7 @@ interface ApiResponse<T> {
   data: T;
 }
 
+
 interface Login {
   email: string;
   password: string;
@@ -27,6 +28,14 @@ const toast = useToast();
 const cartItems = ref(0);
 const totalPrice = useCartStore();
 const cartStore = useCartStore();
+
+const discount = () =>{
+  if (totalPrice.total > 1000000) {
+    return totalPrice.total * 0.8 ;
+  } else {
+    return 0;
+  }
+}
 
 const alertMessage = ref<string | null>(null);
 
@@ -48,22 +57,7 @@ const user = ref<User>({
   streetNumber: ''
 });
 
-const fetchUser = async (data: Login) => {
-  try {
-    const loginResponse = await axios.post("https://e-commerce-20lb.onrender.com/user/login", data);
-    
-    if (loginResponse.status === 200) {
-      const { token, user } = loginResponse.data;
-      localStorage.setItem('authToken', token);
-      localStorage.setItem('user', JSON.stringify(user));
-      user.value = user;
-    } else {
-      console.log("Login failed");
-    }
-  } catch (error) {
-    console.error("Error fetching user:", error);
-  }
-};
+
 
 
 const setUser = () => {
@@ -98,19 +92,19 @@ onMounted(() => {
         <template #footer>
           <!-- User input fields -->
           <div class="flex justify-between">
-            <UInput disabled placeholder="Enter Full Name" class="p-3 w-full" v-model="user.fullName" />
-            <UInput placeholder="Enter Phone Number" class="p-3 w-full" v-model="user.phoneNumber" />
+            <UInput disabled placeholder="Enter Full Name" class="p-3 w-full" v-model="user.fullName" size="lg"/>
+            <UInput placeholder="Enter Phone Number" disabled class="p-3 w-full" v-model="user.phoneNumber" size="lg"/>
           </div>
           <div class="flex justify-between">
-            <UInput disabled placeholder="Enter Email" class="p-3 w-full" v-model="user.email" />
-            <UInput disabled placeholder="Enter City" class="p-3 w-full" v-model="user.city" />
+            <UInput disabled placeholder="Enter Email" class="p-3 w-full" v-model="user.email" size="lg"/>
+            <UInput disabled placeholder="Enter City" class="p-3 w-full" v-model="user.city" size="lg"/>
           </div>
           <div class="flex justify-between">
-            <UInput disabled placeholder="Enter Address ex:kicukiro,gatenga" class="p-3 w-full" v-model="user.address" />
+            <UInput disabled placeholder="Enter Address ex:kicukiro,gatenga" class="p-3 w-full" v-model="user.address" size="lg"/>
           </div>
           <div class="flex justify-between">
-            <UInput disabled placeholder="Enter House Number" class="p-3 w-full" v-model="user.houseNumber" />
-            <UInput disabled placeholder="Enter Street Number" class="p-3 w-full" v-model="user.streetNumber" />
+            <UInput disabled placeholder="Enter House Number" class="p-3 w-full" v-model="user.houseNumber" size="lg"/>
+            <UInput disabled placeholder="Enter Street Number" class="p-3 w-full" v-model="user.streetNumber" size="lg"/>
           </div>
        
           <div class="flex">
@@ -126,54 +120,54 @@ onMounted(() => {
 
       <!-- Payment details and methods -->
       <UCard class="w-[100%]">
-        <h1>PAYMENT METHODS</h1>
-        <!-- Cart items -->
-        <div
-          v-if="cartStore.formattedCart.length"
-          class="flex gap-5 flex-col py-4"
-        >
-          <div
-            v-for="item in cartStore.formattedCart"
-            :key="item?.id"
-            class="flex items-center gap-4 justify-between p-2"
-          >
-            <div class="">
-              <h1 class="font-sans font-semibold">{{ item?.name }}</h1>
-              <div class="flex items-center gap-5 text-xl border rounded-xl">
-                <UIcon
-                  name="i-heroicons-minus-16-solid"
-                  @click="cartStore.remove(item?.id)"
-                />
-                <span class="text-primary">{{ item?.quantity }}</span>
-                <UIcon
-                  name="i-heroicons-plus-16-solid"
-                  @click="cartStore.add(item?.id)"
-                />
-              </div>
-            </div>
-            <div class="">
-              <h1>{{ item?.price }}</h1>
-            </div>
-          </div>
-          <h2>
-            TOTAL : <span class="font-bold"><span class="text-primary">{{ totalPrice.total }} RWF</span></span>
-          </h2>
+        <div class="pb-4">
+          <h1 class="text-center border-b pb-2 font-black ">PAYMENT DETAILS</h1>
         </div>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                
+                  <th scope="col" class="px-6 py-3">
+                    Product
+                  </th>
+             
+                  <th scope="col" class="px-6 py-3">
+                    Price
+                  </th>
+                
+                </tr>
+              </thead>
+              <tbody>
+                <tr  v-for="item in cartStore.formattedCart" :key="item.id"
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                    {{ item.name }}
+                  </td>
+            
+                  <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                    {{ item.price }} Rwf
+                  </td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-700 dark:border-gray-900 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                    Total
+                  </td>
+                  <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                    {{ totalPrice.total }} Rwf
+                  </td>
+                </tr>
 
-        <!-- Payment status and button -->
-        <div>
-          <h1 class="font-bold py-2">STATUS PAYMENT</h1>
-          <h1 class="text-md font-sans"></h1>
-          <h1 class="text-xl font-sans py-3">
-            Discount: <span class="text-primary">0</span>
-          </h1>
-        </div>
+              </tbody>
+            </table>
+          </div>
+      
         <Modal/>
-        <!-- <button @click="payment">Make Payment</button> -->
+ 
        
       </UCard>
 
-      <!-- Alert message -->
+  
       <div v-if="alertMessage" class="alert-message">
         {{ alertMessage }}
       </div>

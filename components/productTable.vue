@@ -167,7 +167,11 @@ const updateProduct = async () => {
 </script>
 
 <template>
-  <UCard
+  <div class="py-5 px-9">
+    <div class="py-6">
+  <h1 class="font-bold text-4xl text-green-500">PRODUCTS</h1>
+</div>
+    <UCard
     class="w-full"
     :ui="{
       base: '',
@@ -178,11 +182,6 @@ const updateProduct = async () => {
       footer: { padding: 'p-4' }
     }"
   >
-    <template #header>
-      <h2 class="font-semibold text-4xl text-gray-900 dark:text-white leading-tight">
-        All Products
-      </h2>
-    </template>
 
     <div class="flex items-center justify-between gap-3 px-4 py-3">
       <UInput v-model="search" icon="i-heroicons-magnifying-glass-20-solid" placeholder="Search..." />
@@ -333,4 +332,8 @@ const updateProduct = async () => {
     </UCard>
    
   </UModal>
+
+  </div>
+
+
 </template>

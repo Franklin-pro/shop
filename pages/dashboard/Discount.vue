@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Discount pages</h1>
+  <ProductTable/>
   </div>
 </template>
 

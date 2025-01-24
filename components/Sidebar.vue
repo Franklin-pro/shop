@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
-    <div :class="[isOpen ? 'w-72' : 'w-20', 'h-full relative duration-300 fixed overflow-auto']">
-      <UCard>
+    <div :class="[isOpen ? 'w-72' : 'w-20', 'h-[960px] dark:bg-gray-600 bg-gray-50 py-5 px-4 lg:relative duration-300 fixed overflow-auto']">
+     
         <UIcon
           name="i-ic-baseline-arrow-back-ios"
           dynamic
@@ -14,30 +14,30 @@
           <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#19a873] origin-left font-medium text-xl duration-300']">Franklin'shop</h1>
          
         </div>
-        <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-md duration-300 pt-6']">MARKETING</h1>
+        <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'font-bold origin-left text-lg text-md duration-300 pt-6']">MARKETING</h1>
         <div v-for="item in items" :key="item.id">
           <NuxtLink :to="item.route">
             <div :class="[isOpen ? 'hover:border-2 hover:border-green-500 w-full' : 'hover:bg-primary', 'inline-flex p-2 cursor-pointer rounded-xl']">
-              <UIcon :name="item.icon" dynamic :class="[isOpen ? 'rotate-[360deg]' : 'text-2xl cursor-pointer duration-500 mr-2 float-left block', 'text-2xl mr-3 text-[#688279]']"/>
-              <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-dm duration-300']">{{ item.name }}</h1>
+              <UIcon :name="item.icon" dynamic :class="[isOpen ? 'rotate-[360deg]' : 'text-2xl cursor-pointer duration-500 mr-2 float-left block', 'text-2xl mr-3 dark:text-gray-100']"/>
+              <h1 :class="[isOpen ? 'scale-1' : 'scale-0', ' origin-left font-medium text-dm duration-300 dark:text-gray-100']">{{ item.name }}</h1>
             </div>
           </NuxtLink>
         </div>
-        <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-md duration-300 pt-6']">PAYMENT</h1>
+        <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'font-bold origin-left text-lg text-md duration-300 pt-6']">PAYMENT</h1>
         <div v-for="item in pay" :key="item.id">
           <NuxtLink :to="item.route">
             <div :class="[isOpen ? 'hover:border-2 hover:border-green-500 w-full' : 'hover:bg-green-500', 'inline-flex cursor-pointer p-2 rounded-xl']">
-              <UIcon :name="item.icon" dynamic :class="[isOpen ? 'rotate-[360deg]' : 'text-2xl cursor-pointer duration-500 mr-2 float-left block', 'text-2xl mr-3 text-[#688279]']"/>
-              <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-dm duration-300']">{{ item.name }}</h1>
+              <UIcon :name="item.icon" dynamic :class="[isOpen ? 'rotate-[360deg]' : 'text-2xl cursor-pointer duration-500 mr-2 float-left block', 'text-2xl mr-3 dark:text-gray-100']"/>
+              <h1 :class="[isOpen ? 'scale-1' : 'scale-0', ' origin-left font-medium text-dm duration-300 dark:text-gray-100']">{{ item.name }}</h1>
             </div>
           </NuxtLink>
         </div>
-        <h1 :class="[isOpen ? 'scale-1 w-full' : 'hidden', 'text-[#688279] origin-left font-medium text-md duration-300 pt-6']">SYSTEM</h1>
+        <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'font-bold origin-left text-lg text-md duration-300 pt-6']">SYSTEM</h1>
         <div v-for="item in system" :key="item.id">
           <NuxtLink :to="item.route">
             <div :class="[isOpen ? 'hover:border-2 hover:border-green-500 w-full' : 'hover:bg-green-500', 'inline-flex cursor-pointer p-2 rounded-xl']">
-              <UIcon :name="item.icon" dynamic :class="[isOpen ? 'rotate-[360deg]' : 'text-2xl cursor-pointer duration-500 mr-2 float-left block', 'text-2xl mr-3 text-[#688279]']"/>
-              <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-dm duration-300']">{{ item.name }}</h1>
+              <UIcon :name="item.icon" dynamic :class="[isOpen ? 'rotate-[360deg]' : 'text-2xl cursor-pointer duration-500 mr-2 float-left block', 'text-2xl mr-3 dark:text-gray-100']"/>
+              <h1 :class="[isOpen ? 'scale-1' : 'scale-0', ' origin-left font-medium text-dm duration-300 dark:text-gray-100']">{{ item.name }}</h1>
             </div>
           </NuxtLink>
         </div>
@@ -45,15 +45,15 @@
           <UToggle v-model="selected" @click="toggleColorMode" on-icon="i-heroicons-moon-16-solid" off-icon="i-heroicons-sun-20-solid">
             {{ colorMode.preference === 'dark' ? 'Light' : 'Dark' }}
           </UToggle>
-          <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-dm duration-300']">COLOR-Mode</h1>
+          <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'dark:text-gray-50 origin-left font-medium text-dm duration-300']">COLOR-Mode</h1>
         </div>
         <div class="my-2 lg:my-0 py-5">
           <div class="inline-flex pt-4" @click="logout">
             <UIcon name="i-ic-twotone-log-out" dynamic :class="[isOpen ? 'rotate-[360deg]' : 'w-[40px] cursor-pointer duration-500 mr-2 float-left block', 'text-2xl mr-3']"/>
-            <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'text-[#688279] origin-left font-medium text-dm duration-300 cursor-pointer hover:text-red-500']">Log Out</h1>
+            <h1 :class="[isOpen ? 'scale-1' : 'scale-0', 'dark:text-gray-50 origin-left font-medium text-dm duration-300 cursor-pointer hover:text-red-500']">Log Out</h1>
           </div>
         </div>
-      </UCard>
+ 
     </div>
   </div>
 </template>
@@ -72,11 +72,11 @@ const toggleSidebar = () => {
 
 const items = [
   { id: 1, name: 'Dashboard', icon: 'i-mdi-view-dashboard', route: 'Dash' },
-  { id: 2, name: 'MarketPlace', icon: 'i-bi-cart-dash', route: 'MarketPlace' },
   { id: 3, name: 'Orders', icon: 'i-bi-bag-dash', route: 'Order' },
   { id: 4, name: 'Tracking', icon: 'i-mdi-book-open-page-variant', route: 'tracking' },
   { id: 5, name: 'Customers', icon: 'i-mdi-account-group-outline', route: 'Customers' },
-  { id: 6, name: 'Discounts', icon: 'i-mdi-tag-heart', route: 'Discount' },
+  { id: 6, name: 'Market Place', icon: 'i-mdi-tag-heart', route: 'marketPlace' },
+  { id: 6, name: 'All Products', icon: 'i-mdi-tag-heart', route: 'Discount' },
   { id: 7, name: 'Upload-Product', icon: 'i-heroicons-cloud-arrow-up-20-solid', route: 'uploadProduct' },
 ]
 

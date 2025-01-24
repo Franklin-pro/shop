@@ -3,7 +3,7 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-8">
       <h1 class="text-3xl font-bold">Tracking</h1>
-      <button class="bg-[#e8f7f1] opacity-2 text-[#5d8b78] px-4 py-2 rounded flex items-center gap-2">
+      <button class="bg-[#e8f7f1] dark:bg-green-500 dark:text-white opacity-2 text-[#5d8b78] px-4 py-2 rounded flex items-center gap-2">
         <UIcon name="i-heroicons-plus-circle-16-solid" /> Add new track
       </button>
     </div>
@@ -16,37 +16,28 @@
           :key="status"
           :class="getButtonClass(status)" 
           @click="setActiveButton(status)"
-          class="px-4 py-2 rounded"
+          class="px-4 py-2  "
         >
-          {{ status }} <span class="bg-[#e8f7f1] px-3 opacity-2 text-gray-500 rounded-md">{{ statusCounts[status] }}</span>
+          {{ status }} <span class=" px-3 opacity-2  rounded-md">{{ statusCounts[status] }}</span>
         </button>
       </div>
       <div class="flex justify-between gap-5 p-4 w-full items-center">
         <UInput
         v-model="searchQuery"
         icon="i-heroicons-magnifying-glass-20-solid"
-        size="sm"
+        size="xl"
         color="white"
         :trailing="false"
         placeholder="Search for track ID, customer, delivery status, destination"
-        class="w-full"
+        class="w-[500px]"
       />
-
-      <!-- <input type="text" placeholder= class="border-2 border-gray-400 px-4 py-2 rounded w-1/3"> -->
-      <div class="flex space-x-4">
-        <div v-for="item in menuItems" :key="item.id">
-          <Dropdown :label="item.name" :items="item.submenus"/>
-        </div>
-       
-      
-      </div>
       </div>
    
     </div>
 
     <!-- Cards -->
-    <div class="stats-cards gap-5">
-      <div v-for="track in filteredTracks" :key="track.id">
+    <div class="stats-cards gap-5 hover:border-green-500 cursor-pointer">
+      <div v-for="track in tracks" :key="track.id">
         <UCard class="stat-card">
           <div>
             <div>
@@ -124,41 +115,49 @@ const menuItems = ref([
   }
 ]);
 
-const tracks = [
-  {
-    id: 'UL-158902NH',
-    route: 'kicukiro - Niboye',
-    distance: 529,
-    timeLeft: '1h 26m',
-    status: 'On route',
-    products:"Iphone 15 pro"
-  },
-  {
-    id: 'UK-568742NK',
-    route: 'Nyarungenge - Nyamirambo',
-    distance: 1959,
-    timeLeft: '19h 9m',
-    status: 'Waiting',
-     products:"Macbook pro"
-  },
-  {
-    id: 'KJ-145651LK',
-    route: 'Gasabo- Kimihurura',
-    distance: 1059,
-    timeLeft: '12h 50m',
-    status: 'On route',
-     products:"Camera (sony lumix)"
-  },
-  {
-    id: 'KJ-145651LK',
-    route: 'Kicukiro- Gatenga',
-    distance: 1059,
-    timeLeft: '12h 50m',
-    status: 'On route',
-     products:"HeadPhone"
-  },
+const trackingStore = useUserStore()
+
+onMounted(async () => {
+  await trackingStore.fetchTrackingProducts()
+})
+const tracks = computed(() => trackingStore.tracking)
+
+// const tracks = [
+//   {
+//     id: 'UL-158902NH',
+//     route: 'kicukiro - Niboye',
+//     distance: 529,
+//     timeLeft: '1h 26m',
+//     status: 'On route',
+//     products:"Iphone 15 pro"
+//   },
+//   {
+//     id: 'UK-568742NK',
+//     route: 'Nyarungenge - Nyamirambo',
+//     distance: 1959,
+//     timeLeft: '19h 9m',
+//     status: 'Waiting',
+//      products:"Macbook pro"
+//   },
+//   {
+//     id: 'KJ-145651LK',
+//     route: 'Gasabo- Kimihurura',
+//     distance: 1059,
+//     timeLeft: '12h 50m',
+//     status: 'On route',
+//      products:"Camera (sony lumix)"
+//   },
+//   {
+//     id: 'KJ-145651LK',
+//     route: 'Kicukiro- Gatenga',
+//     distance: 1059,
+//     timeLeft: '12h 50m',
+//     status: 'On route',
+//      products:"HeadPhone"
+//   },
+  
  
-];
+// ];
 
 definePageMeta({
   layout:'dashboard',
@@ -188,7 +187,7 @@ const setActiveButton = (status) => {
 };
 
 const getButtonClass = (status) => {
-  return activeButton.value === status ? 'bg-[#19a873] text-white' : 'border-gray-400 border text-green-500';
+  return activeButton.value === status ? 'border-b-2 border-green-500 text-green-500' : 'border-gray-400 border-b-2 dark:text-gray-50 text-gray-700';
 };
 
 const statusCounts = computed(() => {

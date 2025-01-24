@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref, onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
-import type { Create, Login, User } from '../type';
+import type { Create, Login, User,Tracking } from '../type';
 
 interface ApiResponse<T> {
   message: string;
@@ -13,6 +13,16 @@ export const useUserStore = defineStore('user', () => {
   const user = ref<User | null>(null);
   const token = ref<string | null>(null);
   const router = useRouter();
+  const tracking = ref<Tracking | null>(null);
+
+  const setTracking = (data: Tracking | null) => {
+    tracking.value = data;
+    if (data) {
+      localStorage.setItem('tracking', JSON.stringify(data));
+    } else {
+      localStorage.removeItem('tracking');
+    }
+  };
 
   const setToken = (data: string | null) => {
     token.value = data;
@@ -119,7 +129,7 @@ export const useUserStore = defineStore('user', () => {
   const DeleteUser = async (userId : string) => {
 try {
   const response = await axios.delete(`https://e-commerce-20lb.onrender.com/user/${userId}`)
-  console.log(response.data)
+
 } catch (error) {
   
 }
@@ -128,7 +138,16 @@ try {
   const fetchUser = async () => {
     try {
       const response = await axios.get<ApiResponse<User[]>>("https://e-commerce-20lb.onrender.com/user");
-      // console.log(response.data.data);
+
+    } catch (error) {
+      console.error('Error fetching user:', error);
+    }
+  };
+
+  const fetchTrackingProducts = async () => {
+    try {
+      const response = await axios.get<ApiResponse<Tracking[]>>("http://localhost:3031/tracking");
+
     } catch (error) {
       console.error('Error fetching user:', error);
     }
@@ -140,5 +159,5 @@ try {
     await router.push('/login'); // Assuming you have a login route
   };
 
-  return { user, token, logout, signIn, setToken, setUser, fetchUser, createAccount,DeleteUser };
+  return { user, token,tracking,setTracking, logout, signIn,fetchTrackingProducts, setToken, setUser, fetchUser, createAccount,DeleteUser };
 });

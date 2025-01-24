@@ -27,7 +27,6 @@ export const useBlogsStore = defineStore('blogsStore', {
     async fetchBlogs() {
       try {
         const response = await axios.get<ApiResponse<Blogs[]>>('https://e-commerce-20lb.onrender.com/blog');
-        console.log(response.data.data)
         this.blogs = response.data.data;
       } catch (error: unknown) {
         if (axios.isAxiosError(error) && error.response) {

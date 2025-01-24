@@ -4,17 +4,17 @@
       <UCard>
         <UForm :validate="validate" :state="state" class="space-y-4" @submit="onSubmit">
           <UFormGroup name="email">
-            <UInput v-model="state.email" icon="i-heroicons-envelope" placeholder="Enter email" />
+            <UInput v-model="state.email" icon="i-heroicons-envelope" placeholder="Enter email" size="lg" />
           </UFormGroup>
           <UFormGroup name="password">
-            <UInput v-model="state.password" type="password" placeholder="Enter password" icon="i-heroicons-lock-closed-16-solid" />
+            <UInput v-model="state.password" type="password" placeholder="Enter password" icon="i-heroicons-lock-closed-16-solid" size="lg"/>
           </UFormGroup>
-          <Button>Login</Button>
+          <button class="bg-orange-500 hover:bg-orange-600 w-72 py-2 rounded-md text-lg font-bold">Sign-In</button>
         </UForm>
-        <NuxtLink to="/forgotpassword" class="flex justify-end pr-4 text-blue-500">Forgot Password?</NuxtLink>
+        <NuxtLink to="/forgotpassword" class="flex justify-end pr-4 text-green-500 font-black hover:text-orange-300">Forgot Password?</NuxtLink>
         <div class="p-4"></div>
         <p class="text-center">
-          If you don't have an account here? <NuxtLink to="/createaccount" class="text-blue-500 hover:text-blue-300">Sign-Up</NuxtLink>
+          If you don't have an account here? <NuxtLink to="/createaccount" class="text-green-500 font-black hover:text-orange-300">Sign-Up</NuxtLink>
         </p>
       </UCard>
     </div>
