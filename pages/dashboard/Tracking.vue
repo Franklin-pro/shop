@@ -9,35 +9,34 @@
     </div>
     
     <!-- Filters -->
-    <div class="flex justify-between flex-col  mb-4">
+    <div class="flex justify-between flex-col mb-4">
       <div class="flex items-end space-x-4">
         <button 
           v-for="status in statuses" 
           :key="status"
           :class="getButtonClass(status)" 
           @click="setActiveButton(status)"
-          class="px-4 py-2  "
+          class="px-4 py-2"
         >
-          {{ status }} <span class=" px-3 opacity-2  rounded-md">{{ statusCounts[status] }}</span>
+          {{ status }} <span class="px-3 opacity-2 rounded-md">{{ statusCounts[status] }}</span>
         </button>
       </div>
       <div class="flex justify-between gap-5 p-4 w-full items-center">
         <UInput
-        v-model="searchQuery"
-        icon="i-heroicons-magnifying-glass-20-solid"
-        size="xl"
-        color="white"
-        :trailing="false"
-        placeholder="Search for track ID, customer, delivery status, destination"
-        class="w-[500px]"
-      />
+          v-model="searchQuery"
+          icon="i-heroicons-magnifying-glass-20-solid"
+          size="xl"
+          color="white"
+          :trailing="false"
+          placeholder="Search for track ID, customer, delivery status, destination"
+          class="w-[500px]"
+        />
       </div>
-   
     </div>
 
     <!-- Cards -->
-    <div class="stats-cards gap-5 hover:border-green-500 cursor-pointer">
-      <div v-for="track in tracks" :key="track.id">
+    <div v-if="filteredTracks.length > 0" class="stats-cards gap-5 hover:border-green-500 cursor-pointer">
+      <div v-for="track in filteredTracks" :key="track.id">
         <UCard class="stat-card">
           <div>
             <div>
@@ -48,16 +47,13 @@
             </div>
             <div class="flex items-center justify-between">
               <div class="w-full">
-           
                 <h1 class="text-lg font-bold">{{ track.route }}</h1>
                 <h1 class="text-gray-600">{{ track.distance }} km</h1>
                 <h1 class="text-gray-600">{{ track.timeLeft }}</h1>
               </div>
-             
               <UCard class="w-full">
                 <div class="flex flex-col justify-between rounded-md">
                   <div class="flex justify-between">
-                 
                     <h1 class="text-sm text-gray-400">{{ track.route }}</h1>
                     <h1 class="text-sm text-gray-400">{{ track.timeLeft }}</h1>
                   </div>
@@ -77,92 +73,31 @@
         </UCard>
       </div>
     </div>
+    <div v-else>
+      <p>No tracking data available.</p>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import products from '~/data';
-
-const menuItems = ref([
-  {
-    id: 1,
-    name: 'Filter',
-    submenus: [
-      {
-        id: 3,
-        label: 'Submenu 1'
-      },
-      {
-        id: 4,
-        label: 'Submenu 2'
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'Time',
-    submenus: [
-      {
-        id: 5,
-        label: 'Submenu 3'
-      },
-      {
-        id: 6,
-        label: 'Submenu 4'
-      }
-    ]
-  }
-]);
-
-const trackingStore = useUserStore()
-
-onMounted(async () => {
-  await trackingStore.fetchTrackingProducts()
-})
-const tracks = computed(() => trackingStore.tracking)
-
-// const tracks = [
-//   {
-//     id: 'UL-158902NH',
-//     route: 'kicukiro - Niboye',
-//     distance: 529,
-//     timeLeft: '1h 26m',
-//     status: 'On route',
-//     products:"Iphone 15 pro"
-//   },
-//   {
-//     id: 'UK-568742NK',
-//     route: 'Nyarungenge - Nyamirambo',
-//     distance: 1959,
-//     timeLeft: '19h 9m',
-//     status: 'Waiting',
-//      products:"Macbook pro"
-//   },
-//   {
-//     id: 'KJ-145651LK',
-//     route: 'Gasabo- Kimihurura',
-//     distance: 1059,
-//     timeLeft: '12h 50m',
-//     status: 'On route',
-//      products:"Camera (sony lumix)"
-//   },
-//   {
-//     id: 'KJ-145651LK',
-//     route: 'Kicukiro- Gatenga',
-//     distance: 1059,
-//     timeLeft: '12h 50m',
-//     status: 'On route',
-//      products:"HeadPhone"
-//   },
-  
- 
-// ];
+import { ref, computed, onMounted } from 'vue';
+import { useTrackingStore } from '~/stores/track.store.js'; // Import the correct store
 
 definePageMeta({
-  layout:'dashboard',
-  middleware:'auth'
-})
+  layout: 'dashboard',
+  middleware: 'auth'
+});
+
+const trackingStore = useTrackingStore(); // Initialize the store
+
+const route = useRoute();
+const productId = route.params.id;
+
+onMounted(() => {
+  trackingStore.fetchTrackingProducts(productId); // Call the method
+});
+
+const tracks = computed(() => trackingStore.tracking || []); // Fallback to empty array
 
 const searchQuery = ref('');
 
@@ -191,8 +126,8 @@ const getButtonClass = (status) => {
 };
 
 const statusCounts = computed(() => {
-  const counts = { 'All': tracks.length, 'On route': 0, 'Waiting': 0, 'Inactive': 0 };
-  tracks.forEach(track => {
+  const counts = { 'All': tracks.value.length, 'On route': 0, 'Waiting': 0, 'Inactive': 0 };
+  tracks.value.forEach(track => {
     if (track.status in counts) {
       counts[track.status]++;
     }
@@ -202,7 +137,7 @@ const statusCounts = computed(() => {
 
 const filteredTracks = computed(() => {
   const query = searchQuery.value.toLowerCase();
-  return tracks.filter(track => {
+  return tracks.value.filter(track => {
     const matchesSearch = track.id.toLowerCase().includes(query) ||
       track.route.toLowerCase().includes(query) ||
       track.status.toLowerCase().includes(query);

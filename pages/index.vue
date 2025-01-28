@@ -1,20 +1,7 @@
 <template>
   <div>
-    <UContainer as="section">
-<HomePage/>
-    
-        <div>
-      <div v-for="item in products" :key="item.id">
-        
-          <!-- <Card/> -->
-   
 
-        
-      </div>
-     </div>
-     
-     
-    </UContainer>
+<HomePage/>
 
     <header/>
   </div>

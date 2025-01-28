@@ -13,16 +13,6 @@ export const useUserStore = defineStore('user', () => {
   const user = ref<User | null>(null);
   const token = ref<string | null>(null);
   const router = useRouter();
-  const tracking = ref<Tracking | null>(null);
-
-  const setTracking = (data: Tracking | null) => {
-    tracking.value = data;
-    if (data) {
-      localStorage.setItem('tracking', JSON.stringify(data));
-    } else {
-      localStorage.removeItem('tracking');
-    }
-  };
 
   const setToken = (data: string | null) => {
     token.value = data;
@@ -144,20 +134,11 @@ try {
     }
   };
 
-  const fetchTrackingProducts = async () => {
-    try {
-      const response = await axios.get<ApiResponse<Tracking[]>>("http://localhost:3031/tracking");
-
-    } catch (error) {
-      console.error('Error fetching user:', error);
-    }
-  };
-
   const logout = async () => {
     setToken(null);
     setUser(null);
     await router.push('/login'); // Assuming you have a login route
   };
 
-  return { user, token,tracking,setTracking, logout, signIn,fetchTrackingProducts, setToken, setUser, fetchUser, createAccount,DeleteUser };
+  return { user, token, logout, signIn, setToken, setUser, fetchUser, createAccount,DeleteUser };
 });

@@ -1,38 +1,26 @@
 <template>
   <div>
-    <div class=" bg-image">
-   <div class="lg:h-[600px] p-[20px] image-container lg:flex justify-between items-center relative lg:flex-row-reverse md:flex-col sm:flex-col gap-[40px]">
-   
-      <img src="../assets/head.png" alt="" class="lg:w-[100%] lg:h-[500px] ">
-     
-
-    <div class="w-full ">
-      <h1 class="lg:text-5xl md:text-2xl sm:text-xl mb-5 text-[#faa122] font-semibold w-full"> Franklin'$hop  €lectronics</h1>
-      <p class="text-md mb-8 text-left space-y-1">Welcome to Franklin'shop Electronics, your premier destination for cutting-edge technology and innovation. Explore our curated selection of electronic devices designed to elevate your lifestyle</p>
-    <Button @click="$router.push('/products')">
-      Get Started
-    </Button>
+    <div class="min-h-screen bg-image flex flex-col justify-center items-center ">
+    <div class="">
+      <h1 class="text-5xl font-bold text-white text-center mb-4">
+        Find Your<br>
+        <span class="">Signature Style</span>
+      </h1>
+      <p class="text-white">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <button class="mt-6 px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">
+        Explore Collection
+      </button>
     </div>
-   </div>
-
-    </div>
-
-    <div class="grid lg:grid-cols-2 md:grid-cols w-full p-5 gap-7">
-
-
-    </div>
+  </div>
 
     <div>
-      <div class="px-7 leading-loose">
-      <h1 class="text-xl py-3 text-primary">Our Products</h1>
-      <h1 class="text-3xl text-[#faa122]">Explore Our Products</h1>
-      </div>
+  
      <div class="py-5">
       
 <Carousel/>
-<div class="flex justify-center">
-  <Button @click="$router.push('/products')"> View All Products</Button>
-</div>
+
 
      </div>
     </div>
@@ -90,5 +78,28 @@ img {
 
 img:hover {
   transform: rotateY(0deg);
+}
+
+.bg-image{
+  background-image: url('../assets/heads.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+    z-index: -1;
+  }
+ 
+
 }
 </style>
