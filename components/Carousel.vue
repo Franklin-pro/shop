@@ -1,5 +1,8 @@
 <template>
-  <UContainer>
+  <UContainer 
+    class="py-10"
+    :ui="{ constrained: 'max-w-6xl', base: 'mx-auto' }"
+  >
     <div class="container mx-auto px-4">
      <!-- categories tabs -->
 
