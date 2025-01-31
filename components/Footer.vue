@@ -4,7 +4,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Left Column: Address and Contact -->
         <div>
-          <h2 class="text-2xl font-bold mb-4">NIndove</h2>
+          <h2 class="text-2xl font-bold mb-4">Franklin-Shop</h2>
           <p class="text-gray-600 dark:text-gray-50">549 Oak St. Crystal Lake, IL 60014</p>
           <p class="text-gray-600 dark:text-gray-50 mt-2">GET DIRECTION 71</p>
           <p class="text-gray-600 dark:text-gray-50 mt-2">

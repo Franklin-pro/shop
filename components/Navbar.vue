@@ -25,11 +25,11 @@ const navigation = () => {
 </script>
 
 <template>
-  <nav class="bg-white dark:bg-gray-800 shadow">
-    <div class="max-w-6xl mx-auto px-4">
+  <nav class=" shadow-md dark:shadow-md shadow-orange-700 dark:shadow-orange-700 lg:text-left   backdrop-blur-lg sticky top-0 z-50 dark:bg-gray-800">
+    <div class=" mx-auto px-4">
       <div class="flex justify-between items-center py-4">
         <!-- Logo/Brand -->
-        <div class="text-lg font-semibold">Allodave</div>
+        <div class="text-3xl text-orange-500 font-bold">Franklin-Shop</div>
 
         <!-- Desktop Menu (Hidden on Mobile) -->
         <div class="hidden font-bold md:flex space-x-6">
@@ -40,9 +40,14 @@ const navigation = () => {
           <a href="/" class="hover:text-gray-300">Pages</a>
           <a href="/" class="hover:text-gray-300">Buy Theme</a>
         </div>
+     
 
         <!-- Icons (Hidden on Mobile) -->
-        <div class="hidden md:flex space-x-2">
+        <div class="hidden md:flex items-center space-x-2">
+          <div class="flex gap-5">
+          <button class=" bg-blue-500 px-6 rounded-md font-bold py-2">Login</button>
+          <button class="border px-6 rounded-md font-bold py-2">Register</button>
+        </div>
           <UChip :text="cartStore.productTotal" size="2xl" color="red" class="mx-4 text-red-500">
               <UButton color="gray" name="cart" icon="i-heroicons-shopping-cart" @click="navigation" />
             </UChip>
@@ -52,7 +57,9 @@ const navigation = () => {
                 {{ colorMode.preference === 'dark' ? 'Light' : 'Dark' }}
               </UToggle>
             </div>
+            
         </div>
+     
   
 
         <!-- Mobile Menu Button (Visible on Mobile) -->
@@ -73,11 +80,20 @@ const navigation = () => {
           <a href="#" class="hover:text-gray-700">Pages</a>
           <a href="#" class="hover:text-gray-700">Buy Theme</a>
         </div>
-        <div class="flex space-x-2 mt-4">
-          <span>Q</span>
-          <span>A</span>
-          <span>✅</span>
-          <span>☑</span>
+        <div class=" flex py-4 md:flex space-x-2">
+          <UChip :text="cartStore.productTotal" size="2xl" color="red" class="mx-4 text-red-500">
+              <UButton color="gray" name="cart" icon="i-heroicons-shopping-cart" @click="navigation" />
+            </UChip>
+            <div class="my-2 lg:my-0">
+              <UToggle v-model="selected" @click="toggleColorMode" on-icon="i-heroicons-moon-16-solid"
+                off-icon="i-heroicons-sun-20-solid">
+                {{ colorMode.preference === 'dark' ? 'Light' : 'Dark' }}
+              </UToggle>
+            </div>
+            <div class="flex gap-5">
+          <button class=" bg-blue-500 px-6 rounded-md font-bold py-2">Login</button>
+          <button class="border px-6 rounded-md font-bold py-2">Register</button>
+        </div>
         </div>
       </div>
     </div>
