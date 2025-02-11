@@ -1,7 +1,7 @@
 <template>
 
   <UContainer>
-    <div>
+    <div class=" py-5">
       <div v-if="cartStore.formattedCart.length" class=" space-y-4">
         <div>
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg">

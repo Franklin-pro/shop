@@ -12,6 +12,7 @@
   "dependencies": {
     "@stripe/stripe-js": "^4.0.0",
     "@types/vue-tel-input": "^2.1.6",
+    "@vueuse/motion": "^2.2.6",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",
     "nuxt": "^3.11.2",

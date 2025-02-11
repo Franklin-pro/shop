@@ -1,9 +1,9 @@
 <template>
-  <div class="max-w-sm dark:shadow-xl shadow-orange-700 dark:shadow-orange-700 rounded overflow-hidden shadow-lg transform transition-all duration-300 hover:scale-105 relative">
+  <div class="max-w-sm dark:shadow-xl rounded overflow-hidden shadow-xl dark:bg-white/30 bg-gray-50 backdrop-blur-lg transform transition-all duration-300 hover:scale-105 relative">
     <img class="w-full h-56 object-contain object-center" :src="Image" alt="Product Image">
     
     <!-- Hover Overlay -->
-    <div class="absolute inset-0 bg-gray-500 bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
+    <div class="absolute inset-0  animation bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
       <!-- View Detail Icon -->
       <NuxtLink :to="`/products/${productId}`" class="text-white hover:text-blue-500 transition-colors duration-300">
         <UIcon name="i-heroicons-eye" class="text-2xl" />
@@ -71,5 +71,17 @@ const addToFavorites = (productId: string) => {
 </script>
 
 <style scoped>
-/* Add any custom styles here */
+.animation{
+  background-image: linear-gradient(rgba(95, 86, 70, 0.623),rgba(95, 86, 70, 0.623));
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  background-position-x:right ;
+  transition: background-size 500ms;
+}
+.animation:hover{
+  background-size: 100% 100%;
+ background-position-x: left;
+ color: white;
+
+}
 </style>

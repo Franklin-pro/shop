@@ -23,8 +23,9 @@
     </div>
 
     <!-- Products Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-5">
-      <div v-for="product in products.slice(0, 6)" :key="product._id">
+    <div class="grid py-7 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-5">
+      <div  v-motion :initial="{ opacity: 0, x: -50 }"
+      :enter="{ opacity: 1, x: 0, transition: { delay: 200 * (index + 1) } }" v-for="(product,index) in products.slice(0, 6)" :key="product._id">
         <ProductCard 
           :title="product.productName"
           :Image="product.productImage.url"

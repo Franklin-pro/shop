@@ -1,7 +1,8 @@
 <template>
   <UContainer>
-    <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 p-2 w-full">
-       <div v-for="product in products" :key="product._id">
+    <div  class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 p-2 w-full">
+       <div v-motion :initial="{ opacity: 0, x: -50 }"
+       :enter="{ opacity: 1, x: 0, transition: { delay: 200 * (index + 1) } }" v-for="(product,index) in products" :key="product._id">
           <productCard 
             :title="product.productName"
             :Image="product.productImage.url"

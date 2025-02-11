@@ -4,16 +4,17 @@
       <!-- Promotions Section -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Loop through the last two uploaded products -->
-        <div v-for="(item, index) in lastTwoProducts" :key="item._id">
-  <div :class="getCardColor(index)" class="grid grid-cols-1 md:grid-cols-2 gap-6 text-white p-8 rounded-xl overflow-hidden shadow-lg">
+        <div v-for="(item, index) in lastTwoProducts" :key="item._id" :style="{ transitionDelay: `${index * 100}ms` }" v-motion :initial="{ opacity: 0, x: -50 }"
+        :enter="{ opacity: 1, x: 0, transition: { delay: 200 * (index + 1) } }">
+  <div :class="[colorClassesOverlay[index % colorClassesOverlay.length]]" class="grid grid-cols-1 md:grid-cols-2 gap-6 p-8 rounded-xl overflow-hidden shadow-lg">
     <div class="flex flex-col justify-center">
       <h3 class="text-lg font-semibold">Holiday Deals</h3>
-      <h2 class="text-4xl font-bold mt-2">Up to 30% off</h2>
-      <p class="mt-1">{{ item.productName }}</p>
-      <a href="#" @click="cartStore.add(item._id)" class="mt-4 inline-block bg-white text-center text-red-600 px-6 py-2 rounded-full font-medium">Shop Now</a>
+      <h2 class="text-4xl font-bold mt-2 typing">Up to 30% off</h2>
+      <p class="mt-1 text-xl font-bold"  :class="[colorClassesText[index % colorClassesText.length]]">{{ item.productName }}</p>
+      <a href="#" @click="cartStore.add(item._id)" class="mt-4 animations inline-block bg-white text-center text-red-600 px-6 py-2 rounded-full font-medium">Shop Now</a>
     </div>
-    <div class="flex justify-center md:justify-end">
-      <img class="w-full h-auto rounded-md" :src="item.productImage.url" alt="Product Image" />
+    <div class="flex h-[300px] object-cover justify-center md:justify-end">
+      <img class="w-full object-contain bg-transparent h-auto rounded-md" :src="item.productImage.url" alt="Product Image" />
     </div>
   </div>
 </div>
@@ -21,7 +22,8 @@
       </div>
 
       <!-- Features Section -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-10 text-center">
+      <div v-motion :initial="{ opacity: 0, x: -50 }"
+      :enter="{ opacity: 1, x: 0, transition: { delay: 200  } }"  class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-10 text-center">
         <div class="bg-white dark:bg-gray-600 p-6 rounded-lg shadow-md">
           <span class="text-purple-600 text-3xl">📦</span>
           <h4 class="text-lg font-semibold mt-2">Curb-side pickup</h4>
@@ -58,42 +60,54 @@ onMounted(() => {
 // Get the last two uploaded products
 const lastTwoProducts = computed(() => {
   const products = productsStore.discountedProducts || []; // Ensure it's an array
-  return products.length > 2 ? products.slice(-2) : products; // Get the last 2 items
+  return products.length > 4 ? products.slice(-2) : products; // Get the last 2 items
 });
 
-// Function to return the correct card color for each product
-const getCardColor = (index: number) => {
-  const colors = ['bg-linear', 'bg-second dark:bg-green-500']; // First = red, Second = green
-  return colors[index] || 'bg-gray-600'; // Default to gray if index is out of range
-};
+
+
+const colorClassesOverlay = [
+  "bg-red-500/10",
+  "bg-yellow-500/5",
+];
+
+const colorClassesText = [
+  "text-white",
+  "text-gray-700",
+ 
+];
 </script>
 <style>
-.bg-image {
-  background-image: url('https://static.wixstatic.com/media/c837a6_d84a631864a442a496670bc2d787c6a0~mv2.jpg/v1/fill/w_879,h_468,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/c837a6_d84a631864a442a496670bc2d787c6a0~mv2.jpg');
-  background-size: cover;
-  background-position: center;
+.animations{
+  background-image: linear-gradient(orange,orange);
   background-repeat: no-repeat;
+  background-size: 0% 100%;
+  background-position-x:right ;
+  transition: background-size 500ms;
 }
-.bg-linear{
-  background: linear-gradient(90deg, rgb(32, 23, 199) 0%,rgb(38, 28, 212) 0%, #971414, #bb1616);
+.animations:hover{
+  background-size: 100% 100%;
+ background-position-x: left;
+ color: white;
 
 }
-@media screen and (max-width: 1024px) {
-  .bg-linear{
-    background: linear-gradient(90deg, rgb(32, 23, 199) 0%,rgb(38, 28, 212) 0%, #971414, #bb1616);
-  }
-  
-}
-.bg-second{
-  background: linear-gradient(90deg, rgb(32, 23, 199) 0%,rgb(38, 28, 212) 0%, #978314, #b8bb16);
+.typing{
+  width: 20ch;
+  text-wrap: nowrap;
+  overflow: hidden;
+  animation: typing 2s steps(20) infinite alternate, blink .5s step-end infinite alternate;
 
 }
-@media screen and (max-width: 1024px) {
-  .bg-second{
-    background: linear-gradient(90deg, rgb(32, 23, 199) 0%,rgb(38, 28, 212) 0%, #978314, #b8bb16);
+@keyframes typing {
+  from {
+    width: 0;
   }
-  
 }
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
 
 
 
